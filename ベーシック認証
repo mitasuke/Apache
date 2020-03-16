@@ -1,0 +1,15 @@
+★特定IPからは許可、それ以外からの接続はベーシック認証通れば許可★
+
+<Location /dir/dir/file>
+AuthUserFile /xxx/.htpasswd
+AuthGroupFile /dev/null
+AuthName ByPassword
+AuthType Basic
+
+<RequireAny>
+Require ip xxx.xxx.xxx.xxx
+Require ip xxx.xxx.xxx.xxx
+Require valid-user
+</RequireAny>
+
+</Location>
