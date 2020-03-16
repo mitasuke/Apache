@@ -13,3 +13,5 @@ Require valid-user
 </RequireAny>
 
 </Location>
+
+2.2で使っていた Satisfy any は2.4で使うと変な挙動になるらしいので止めておく。
