@@ -1,0 +1,32 @@
+RewriteEngine On
+RewriteCond %{SERVER_PORT} !^443$
+RewriteRule (.*)$ https://server.jp/test/$1 [L,R]
+
+[1]
+RewriteEngine On
+
+・Rewrite機能とは、アクセスのあったURLを正規表現で書き換えてから処理する機能。
+　その機能を on にしている。（mod_rewriteを有効にする）
+ 
+[2]
+RewriteCond %{SERVER_PORT} !^443$
+
+・サーバ変数 SERVER_PORT が、指定した正規表現のパターンと一致していれば、次の条件を引き続き実行する。
+  今回は「リクエストされたポートが443でない場合、次を実行」となる。
+ 
+[3]
+RewriteRule (.*)$ https://server.jp/test/$1 [L,R]
+（RewriteRule 正規表現パターン 置換パターン オプション）
+
+・RewriteCond の条件に一致した場合に、RewriteRule に記載されたURLに書き換える。
+
+　オプション [L,R] について、
+　L・・・定義の最終行を意味し、これ以降にRewriteRuleを書いても無視される
+　R・・・リダイレクトを実行する
+
+　正規表現パターン (.*)$・・・任意の文字列を1つのまとまりとみなす($は行の終わり)
+　　　　　　　　　　　　　　　つまり、http://～ でつなぎにきて、このディレクトリ配下のページに
+　　　　　　　　　　　　　　　つなごうとすると、ページ名の部分が $1 に入れられる。
+　　　　　　　　　　　　　　　よって、https://～～/ページ名 となる。
+               
+ 
