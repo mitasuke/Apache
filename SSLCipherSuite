@@ -1,0 +1,41 @@
+[変更前]
+SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:-LOW:-SSLv2:-EXP:+eNULL
+
+[変更後]
+SSLCipherSuite AESGCM:HIGH:!aNULL:!MD5
+
+
+＜参考＞
+http://qiita.com/sion_cojp/items/99fee211ceace3f76cff
+https://crosstrust.co.jp/support/faq/faq09/a016
+
+!ADH・・・匿名暗号方式を削除
++MEDIUM+HIGH・・・128bit以上の暗号方式を追加
+
+!aNULL・・・通信の認証をしない方式を削除
+!MD5・・・メッセージ認証符号にMD5を使用するものを削除
+
+
+＜参考＞
+http://kiririmode.hatenablog.jp/entry/20081214/p1
+
+# openssl ciphers -v 'AESGCM:HIGH:!aNULL:!MD5'
+を実行すると、どんな暗号化方式を許可しているか見られる。
+
+
+＜参考＞
+http://tkengo.github.io/blog/2015/12/01/https-details/
+
+これで、暗号スイートの一覧を見ることができる。
+# openssl ciphers -v
+
+
+●表示例：
+AES128-SHA               SSLv3   Kx=RSA      Au=RSA  Enc=AES(128)      Mac=SHA1
+
+AES128-SHA・・・暗号スイートの名前
+SSLv3・・・プロトコルのバージョン
+Kx=RSA・・・鍵交換に使われる暗号化アルゴリズム 
+Au=RSA・・・認証に使われる暗号化アルゴリズム 
+Enc=AES(128)・・・アプリケーション層の暗号化に使われる暗号化アルゴリズム 
+Mac=SHA1・・・メッセージの検証に使われるハッシュアルゴリズム 
